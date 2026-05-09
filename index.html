@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { margin: 0; background: transparent; overflow: hidden; }
+
+        .vortex-container {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+            color: #ffffff;
+            width: 202px;
+        }
+
+        .vortex-card {
+            width: 202px;
+            height: 135px;
+            background: rgba(0,0,0,1);
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 12px;
+            border: 1px solid rgba(54, 160, 235, 0.3);
+            border-top: 2px solid rgba(54, 160, 235, 0.75);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        .marquee-timer {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Keeps everything vertically centered */
+            font-weight: 700;
+            color: #3598db;
+            height: 40px; 
+            overflow: hidden;
+            margin-bottom: 12px;
+            width: 100%;
+            gap: 1px; /* Tight spacing between digits */
+        }
+
+        .digit-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .digit-col {
+            height: 40px;
+            width: 12px; 
+            position: relative;
+            font-size: 20px;
+        }
+
+        .digit-reel {
+            position: absolute;
+            top: 0;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .digit-reel span {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+
+        .label {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            margin-left: 1px;
+            margin-right: 3px;
+            line-height: 40px; /* Aligns with the middle of the digits */
+        }
+
+        .join-btn {
+          width: 178px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #000000;
+          border-radius: 10px;
+          padding: 8px;
+          border: 1px solid rgba(54, 160, 235, 0.3);
+          height: 44px; 
+          box-sizing: border-box;
+          cursor: pointer;
+          transition: transform 0.4s ease, border-color 0.4s ease;
+          box-shadow: 0 0 15px rgba(26, 58, 109, 0.4);
+          color: #ffffff;
+          font-weight: 600;
+          font-size: 15px;
+          text-decoration: none;
+          font-size: 16px;
+        }
+
+        .join-btn:hover {
+            transform: scale(1.02);
+            border-color: rgba(54, 160, 235, 0.75);
+            box-shadow: 0 0 25px rgba(26, 58, 109, 0.9);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vortex-container">
+        <div class="vortex-card">
+            <div class="title">Next ⚡Black Hole Blitz™</div>
+            <div class="marquee-timer" id="timer">
+                <div class="digit-group">
+                    <div class="digit-col"><div class="digit-reel" id="d1"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>
+                    <div class="digit-col"><div class="digit-reel" id="d2"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>
+                    <span class="label">d</span>
+                </div>
+                
+                <div class="digit-group">
+                    <div class="digit-col"><div class="digit-reel" id="h1"><span>0</span><span>1</span><span>2</span></div></div>
+                    <div class="digit-col"><div class="digit-reel" id="h2"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>
+                    <span class="label">hr</span>
+                </div>
+                
+                <div class="digit-group">
+                    <div class="digit-col"><div class="digit-reel" id="m1"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+                    <div class="digit-col"><div class="digit-reel" id="m2"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>
+                    <span class="label">min</span>
+                </div>
+                
+                <div class="digit-group">
+                    <div class="digit-col"><div class="digit-reel" id="s1"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+                    <div class="digit-col"><div class="digit-reel" id="s2"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>
+                    <span class="label">s</span>
+                </div>
+            </div>
+            
+            <a href="https://www.chess.com/play/arena/31197811" target="_blank" style="text-decoration:none;"><button class="join-btn">Join Now!</button></a>
+        </div>
+    </div>
+
+    <script>
+        const TARGET_DATE = "2026-05-10T10:00:00+10:00";
+        const targetMs = new Date(TARGET_DATE).getTime();
+        const rowHeight = 40; 
+
+        function updateDigit(id, value) {
+            const reel = document.getElementById(id);
+            if (reel) {
+                reel.style.transform = `translateY(-${value * rowHeight}px)`;
+            }
+        }
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = targetMs - now;
+
+            if (diff <= 0) {
+                document.getElementById('timer').innerHTML = "LIVE";
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const displayD = Math.min(d, 99);
+            updateDigit('d1', Math.floor(displayD / 10));
+            updateDigit('d2', displayD % 10);
+            updateDigit('h1', Math.floor(h / 10));
+            updateDigit('h2', h % 10);
+            updateDigit('m1', Math.floor(m / 10));
+            updateDigit('m2', m % 10);
+            updateDigit('s1', Math.floor(s / 10));
+            updateDigit('s2', s % 10);
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+
+</body>
+</html>
